@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>标签页1</h1>
+
+  <script>
+    const worker = new SharedWorker('shared-worker.js');
+    const port = worker.port;
+    // console.log(port)
+    // 与共享 Worker 通信
+    port.onmessage = function(data) {
+      // const message = event.data;
+      console.log('标签页1收到消息:', data);
+    };
+
+  </script>
+</body>
+</html>
