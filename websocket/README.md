@@ -8,6 +8,6 @@
 python websockets_server.py
 ```
 
-并访问[http://127.0.0.1:8888/index.html](http://127.0.0.1:8888/index2.html)
+并访问[http://localhost:8765/static/index.html](http://localhost:8765/static/index.html)
 
 查看控制台即可看到同步的消息

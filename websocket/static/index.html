@@ -7,10 +7,15 @@
   <h1>socket连接</h1>
 
   <script>
-  socket = new WebSocket("ws://localhost:8765");
+  socket = new WebSocket("ws://localhost:8765/websocket");
   // 当连接建立时执行的逻辑
   socket.onopen = function() {
     console.log("WebSocket 连接已建立");
+    let count = 0
+    setInterval(()=>{
+      console.log(`发送了第${count+1}条消息`)
+      socket.send(`第${++count}条消息`)
+    },1000);
   };
   // 当连接关闭时执行的逻辑
   
@@ -22,7 +27,6 @@
         // 循环向所有端口广播
         console.log(event.data)
     }
-
   </script>
 </body>
 </html>
