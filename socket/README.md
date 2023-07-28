@@ -13,4 +13,3 @@ go run main.go
 
 并访问[http://localhost:8081/index.html](http://localhost:8081/index.html)
 
-查看控制台即可看到同步的消息
