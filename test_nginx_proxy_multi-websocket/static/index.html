@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+  <h1>socket连接</h1>
+
+  <script>
+  let rand = Math.ceil(1000*Math.random())
+  // 建立连接
+  let socket = new WebSocket("ws://localhost/websocket?token=Bearer jxklinxxxx");
+  // 当连接建立时执行的逻辑
+  socket.onopen = function() {
+    console.log("WebSocket 连接已建立");
+    let count = 0
+    setInterval(()=>{
+      console.log(`client_${rand}发送了第${++count}条消息`)
+      socket.send(`client_${rand}:第${count}条消息`)
+    },1000);
+  };
+  // 当连接关闭时执行的逻辑
+  
+  socket.onclose = function() {
+      console.log("WebSocket 连接已关闭");
+      socket.close()
+      socket = new WebSocket("ws://localhost/websocket?token=Bearer jxklinxxxx");
+      socket.onmessage = function(event){
+        // 打印
+        console.log(event.data)
+      }
+  };
+  
+  socket.onmessage = function(event){
+        // 打印
+        console.log(event.data)
+    }
+  </script>
+</body>
+</html>
