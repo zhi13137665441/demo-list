@@ -29,16 +29,17 @@ func handleConnection(conn net.Conn) error {
 		route = route[1:]
 	}
 	route = "static/" + route
-	file, err := ioutil.ReadFile(route)
+	data, err := ioutil.ReadFile(route)
 	if err != nil {
-		_, err = conn.Write([]byte("HTTP/1.1 404 NOT FOUND\r\nContent-Type:text/html\r\nContent-Length:14\r\n\r\nFILE NOT FOUND"))
+		data := "FILE NOT FOUND"
+		_, err = conn.Write([]byte(fmt.Sprintf("HTTP/1.1 404 NOT FOUND\r\nContent-Type:text/html\r\nContent-Length:%d\r\n\r\n%s", len(data), data)))
 		if err != nil {
 			log.Println("failed to write response contents")
 			return err
 		}
 	}
 	// 这里修改Content-Type即可实现静态资源服务器
-	_, err = conn.Write([]byte(fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type:text/html\r\nContent-Length:%d\r\n\r\n%s", len(file), string(file))))
+	_, err = conn.Write([]byte(fmt.Sprintf("HTTP/1.1 200 OK\r\nContent-Type:text/html\r\nContent-Length:%d\r\n\r\n%s", len(data), string(data))))
 	if err != nil {
 		log.Println("failed to write response contents")
 		return err
