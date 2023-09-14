@@ -34,7 +34,7 @@ func main() {
 	mux1.PathPrefix("/static/").Handler(http.StripPrefix("/static/", fs))
 
 	mux1.HandleFunc("/events/", sendEvent)
-	log.Println("http://127.0.0.1:8081")
+	log.Println("http://127.0.0.1:8081/static/")
 	server := http.Server{
 		Addr:    ":8081",
 		Handler: mux1,
